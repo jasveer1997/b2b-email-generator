@@ -1,13 +1,29 @@
 {
+  "name": "b2b-email-generator",
+  "version": "0.1.0",
   "private": true,
+  "author": "ubejajasveersingh@gmail.com",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
+    "@ant-design/icons": "^4.6.4",
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
+    "@testing-library/user-event": "^13.5.0",
+    "antd": "^4.0.2",
+    "axios": "^1.6.4",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^3.0.4"
+    "recompose": "^0.30.0",
+    "redux": "^4.0.5",
+    "redux-saga": "^1.1.3",
+    "web-vitals": "^2.1.4"
+  },
+  "packageManager": "yarn@2.4.2",
+  "engines": {
+    "node": ">= 12.22.5"
   },
   "scripts": {
     "start": "react-scripts start",

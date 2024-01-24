@@ -1,15 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { sendToVercelAnalytics } from './vitals';
+import ReactDOM from 'react-dom/client';
+import 'antd/dist/antd.min.css'
 
-ReactDOM.render(
-  <React.StrictMode>
+import App from './components/root';
+import reportWebVitals from './scripts/reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
 );
 
-reportWebVitals(sendToVercelAnalytics);
+reportWebVitals(console.log);
