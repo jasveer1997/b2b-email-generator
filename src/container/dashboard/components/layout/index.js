@@ -2,7 +2,7 @@ import {Table} from 'antd';
 
 import { columns } from "./columns";
 import Filters from "../filters";
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import AddNewUser from "../AddNewUser";
 import SkeletonGrid from "../skeletonLoader";
 
@@ -21,7 +21,7 @@ const UsersLayout = ({ usersData, filterValue, setFilterValue, addNewUser, addUs
 
     return (
         <>
-            <span>
+            <span style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Filters filterValue={filterValue} setFilterValue={setFilterValue} />
                 <AddNewUser addNewUser={addNewUser} addUserData={addUserData} />
             </span>

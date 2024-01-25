@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { Button, Form, Input, Modal } from 'antd';
-const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
+import { Button, Form, Input, Modal, notification } from 'antd';
+import { validateName, validateDomain } from './validators';
+const CollectionCreateForm = ({ loading, open, onCreate, onCancel }) => {
     const [form] = Form.useForm();
+
     return (
         <Modal
             open={open}
@@ -9,12 +11,12 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
             okText="Create"
             cancelText="Cancel"
             onCancel={onCancel}
+            confirmLoading={loading}
             onOk={() => {
                 form
                     .validateFields()
                     .then((values) => {
                         onCreate(values);
-                        form.resetFields();
                     })
                     .catch((info) => {
                         console.log('Validate Failed:', info);
@@ -37,6 +39,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
                             required: true,
                             message: 'Please input the first name!',
                         },
+                        { validator: validateName },
                     ]}
                 >
                     <Input />
@@ -50,6 +53,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
                             required: true,
                             message: 'Please input the last name!',
                         },
+                        { validator: validateName },
                     ]}
                 >
                     <Input />
@@ -63,6 +67,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
                             required: true,
                             message: 'Please input the domain!',
                         },
+                        { validator: validateDomain },
                     ]}
                 >
                     <Input />
@@ -73,12 +78,30 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
 };
 const App = ({ addNewUser, addUserData }) => {
     const [open, setOpen] = useState(false);
-
+    const [form] = Form.useForm();
     useEffect(() => {
         if(addUserData.loaded) {
+            form.resetFields();
             setOpen(false);
+            notification.success({
+                duration: 3,
+                message: "Added!",
+                description: "Successfully added a new user",
+                placement: 'top',
+            });
         }
     }, [addUserData.loaded])
+
+    useEffect(() => {
+        if(addUserData.hasError) {
+            notification.error({
+                duration: 3,
+                message: "Internal Server Error",
+                description: "Failed to add user, please try again after some time",
+                placement: 'top',
+            });
+        }
+    }, [addUserData.hasError])
 
     return (
         <div>
@@ -87,11 +110,13 @@ const App = ({ addNewUser, addUserData }) => {
                 onClick={() => {
                     setOpen(true);
                 }}
+                loading={addUserData.isLoading}
             >
                 Add New User
             </Button>
             <CollectionCreateForm
                 open={open}
+                loading={addUserData.isLoading}
                 onCreate={addNewUser}
                 onCancel={() => {
                     setOpen(false);
@@ -101,3 +126,5 @@ const App = ({ addNewUser, addUserData }) => {
     );
 };
 export default App;
+
+// Later - not handling middle name for now!

@@ -78,7 +78,7 @@ const Filters = ({ setFilterValue, filterValue }) => {
                 setFilterValue(newValue);
             }}
             style={{
-                width: '100%',
+                width: '20%',
             }}
         />
     );

@@ -2,7 +2,7 @@ import { post, put } from "../../../helper/api";
 
 const UsersService = {};
 
-UsersService.fetchUsers = async ({ from = 0, size = 10, domains }) => {
+UsersService.fetchUsers = async ({ from = 0, size = 100, domains }) => {
     const urlObj = {
         url: 'https://gotest-xj8jikrn.b4a.run/users',
         query: {
