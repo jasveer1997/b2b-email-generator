@@ -34,8 +34,8 @@ UsersService.addUser = async ({ first_name, last_name, domain }) => {
 
     const body = {
         full_name: {
-            first_name,
-            last_name
+            first_name: first_name.trim(),
+            last_name: last_name.trim()
         },
         domain: {
             name: domain

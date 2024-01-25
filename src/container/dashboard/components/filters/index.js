@@ -1,4 +1,4 @@
-import {useMemo, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import { Select, Spin } from 'antd';
 import debounce from 'lodash/debounce';
 import {get} from "../../../../helper/api";
@@ -7,6 +7,21 @@ function DebounceSelect({ fetchOptions, debounceTimeout = 800, ...props }) {
     const [fetching, setFetching] = useState(false);
     const [options, setOptions] = useState([]);
     const fetchRef = useRef(0);
+
+    useEffect(() => {
+        fetchRef.current += 1;
+        const fetchId = fetchRef.current;
+        setFetching(true);
+        fetchOptions().then((newOptions) => {
+            if (fetchId !== fetchRef.current) {
+                return;
+            }
+            setOptions(newOptions);
+            setFetching(false);
+        });
+    }, []);
+
+
     const debounceFetcher = useMemo(() => {
         const loadOptions = (value) => {
             fetchRef.current += 1;

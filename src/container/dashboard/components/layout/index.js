@@ -2,11 +2,13 @@ import {Table} from 'antd';
 
 import { columns } from "./columns";
 import Filters from "../filters";
-import {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import AddNewUser from "../AddNewUser";
+import SkeletonGrid from "../skeletonLoader";
 
-const UsersLayout = ({ filterValue, setFilterValue, users: { users = [], pagination = {} } = {}, addNewUser, addUserData }) => {
+const UsersLayout = ({ usersData, filterValue, setFilterValue, addNewUser, addUserData }) => {
 
+    const { users: { users = [], pagination = {} } = {} } = usersData;
     const data = useMemo(() => {
         return users.map(user => {
             return {
@@ -23,7 +25,8 @@ const UsersLayout = ({ filterValue, setFilterValue, users: { users = [], paginat
                 <Filters filterValue={filterValue} setFilterValue={setFilterValue} />
                 <AddNewUser addNewUser={addNewUser} addUserData={addUserData} />
             </span>
-            <Table columns={columns} dataSource={data} />
+            {(usersData.isLoading || !usersData.loaded) ? <SkeletonGrid active /> : <Table columns={columns} dataSource={data} />}
+
         </>
     );
 };

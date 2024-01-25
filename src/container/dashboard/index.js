@@ -27,13 +27,8 @@ const DashboardRouting = props => {
         }
     }, [addUserData]);
 
-    // Render loaders
-    if (usersData.isLoading || !usersData.loaded) {
-        return <SkeletonGrid active />;
-    }
-
     return (
-        <UsersLayout {...rest} filterValue={filterValue} setFilterValue={setFilterValue} addUserData={addUserData} users={usersData.users}/>
+        <UsersLayout {...rest} filterValue={filterValue} setFilterValue={setFilterValue} addUserData={addUserData} usersData={usersData}/>
     );
 };
 
